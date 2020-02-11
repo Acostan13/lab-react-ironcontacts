@@ -1,18 +1,55 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import contacts from './contacts.json';
 
 class App extends Component {
+
+  state = {
+    fiveContacts: contacts.slice(0, 5),
+    randomContact: contacts[Math.floor(Math.random()*contacts.length)]
+  }
+
+  showFiveContacts = () => {
+    // console.log(this.state.fiveContacts)
+    console.log(this.state.randomContact)
+    return this.state.fiveContacts.map((eachContact, index) => {
+      return (
+        <tr key={index}>
+          <th><img src={eachContact.pictureUrl} alt={eachContact.name}/></th>
+          <th>{eachContact.name}</th>
+          <th>{eachContact.popularity}</th>
+        </tr>
+      )
+  })
+  }
+
+
+  // addRandom = (i) => {
+  //   console.log('delete ', i)
+  //   let addRandom = [...this.state.randomContact]
+  //   newAnimalList.splice(i,1)
+  //   this.setState({
+  //     animals:newAnimalList
+  //   })
+
+  // }
+  
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Table</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Picture</th>
+              <th>Name</th>
+              <th>Popularity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.showFiveContacts()}
+          </tbody>
+        </table>
       </div>
     );
   }
